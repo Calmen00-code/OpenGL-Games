@@ -19,8 +19,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1000;
+const unsigned int SCR_HEIGHT = 800;
 
 // camera
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -62,7 +62,7 @@ int main()
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // configure global opengl state
@@ -120,29 +120,67 @@ int main()
 
     // load and create a texture 
     // -------------------------
-    unsigned int textureSky;
+    unsigned int textureSun, textureSky, textureCloud;
     // texture for sky
-    // ----------------
     glGenTextures(1, &textureSky);
     glBindTexture(GL_TEXTURE_2D, textureSky);
-    // set the texture wrapping parameters
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char* data = stbi_load("assets/textures/sky.jpg", &width, &height, &nrChannels, 0);
-    if (data)
-    {
+    stbi_set_flip_vertically_on_load(true); 
+    unsigned char* data = stbi_load("assets/textures/blue_sky.jpg", &width, &height, &nrChannels, 0);
+    if (data) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
     }
-    else
-    {
+    else {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
+
+    // texture for sun
+    glGenTextures(1, &textureSun);
+    glBindTexture(GL_TEXTURE_2D, textureSun);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // load image, create texture and generate mipmaps
+    stbi_set_flip_vertically_on_load(true); 
+    data = stbi_load("assets/textures/sun.jpg", &width, &height, &nrChannels, 0);
+    if (data) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
+
+    // texture for cloud
+    glGenTextures(1, &textureCloud);
+    glBindTexture(GL_TEXTURE_2D, textureCloud);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // load image, create texture and generate mipmaps
+    stbi_set_flip_vertically_on_load(true); 
+    data = stbi_load("assets/textures/cloud.jpg", &width, &height, &nrChannels, 0);
+    if (data) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else {
         std::cout << "Failed to load texture" << std::endl;
     }
     stbi_image_free(data);
@@ -151,13 +189,20 @@ int main()
     // -------------------------------------------------------------------------------------------
     skyShader.use();
     skyShader.setInt("textureSky", 0);
+    skyShader.setInt("textureSun", 1);
+    skyShader.setInt("textureCloud", 2);
 
     // set transformation
     glm::mat4 transformSky = glm::mat4(1.0f);
-    // transformSky = glm::translate(transformSky, glm::vec3(-1.0f, 1.0f, 0.0f));
-    transformSky = glm::rotate(transformSky, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::mat4 transformSun = glm::mat4(1.0f);
+    glm::mat4 transformCloud = glm::mat4(1.0f);
+    transformSun = glm::translate(transformSun, glm::vec3(-0.5f, 0.5f, 0.0f));  // sun on the top left
+    transformSky = glm::translate(transformSky, glm::vec3(0.0f, 0.5f, 0.0f));   // sky on middle
+    transformCloud = glm::translate(transformCloud, glm::vec3(0.5f, 0.5f, 0.0f));  // cloud on top right
     skyShader.use();
     skyShader.setMat4("transformSky", transformSky);
+    skyShader.setMat4("transformSun", transformSun);
+    skyShader.setMat4("transformCloud", transformCloud);
 
     // render loop
     // -----------
@@ -181,16 +226,22 @@ int main()
          // bind textures on corresponding texture units
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureSky);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, textureSun);
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_2D, textureCloud);
 
         // create transformation for shaders
         // ---------------------------------
         float timeVal = glfwGetTime() / 10000.0f;
+        skyShader.setMat4("transform", transformSky);
+        skyShader.setMat4("transform", transformSun);
+        skyShader.setMat4("transform", transformCloud);
 
         // create transformation for skyShader
         // glm::mat4 transformSky = glm::mat4(1.0f);
-        // transformSky = glm::translate(transformSky, glm::vec3(-1.0f, 1.0f, 0.0f));
-        transformSky = glm::rotate(transformSky, glm::radians(timeVal), glm::vec3(0.0f, 0.0f, 1.0f));
-        skyShader.setMat4("transform", transformSky);
+        // transformSky = glm::translate(transformSky, glm::vec3(-0.5f, 0.5f, 0.0f));
+        // transformSky = glm::rotate(transformSky, glm::radians(timeVal), glm::vec3(0.0f, 0.0f, 1.0f));
 
         // get matrix's uniform location and set matrix
         // skyShader.use();
