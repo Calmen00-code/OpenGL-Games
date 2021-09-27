@@ -74,8 +74,8 @@ const unsigned int SCR_HEIGHT = 1000;
 
 // camera
 glm::vec3 camera_pos   = glm::vec3(0.0f, 0.9f,  90.0f);
-glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -3.0f);
-glm::vec3 camera_up    = glm::vec3(0.0f, 3.0f,  0.0f);
+glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 camera_up    = glm::vec3(0.0f, 1.0f,  0.0f);
 
 bool firstMouse = true;
 float yaw   = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
@@ -295,17 +295,6 @@ int main()
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		// Lamp Side Land 1, left (Vertical)
-		glBindVertexArray(VAO_box);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureLamp);
-
-		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(-3.0f, -0.5f, 90.0f));
-		shader.setMat4("model", model);
-
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
 		// Side land 1, Right (Vertical)
 		glBindVertexArray(VAO_box);
 		glActiveTexture(GL_TEXTURE0);
@@ -325,7 +314,20 @@ int main()
 
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(-3.5f, -0.5f, 60.0f));
-		model = glm::scale(model, glm::vec3(30.0f, 0.0f, -30.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 0.0f, -3.0f));
+
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Street 2 (Left Vertical)
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureStreetVertical);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-11.0f, -0.5f, 35.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 0.0f, -50.0f));
 
 		shader.setMat4("model", model);
 
@@ -338,12 +340,24 @@ int main()
 
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(2.5f, -0.5f, 60.0f));
-		model = glm::scale(model, glm::vec3(30.0f, 0.0f, -30.0f));
+		model = glm::scale(model, glm::vec3(30.0f, 0.0f, -3.0f));
 
 		shader.setMat4("model", model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
+		// Street 3 (Right Vertical)
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureStreetVertical);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(11.0f, -0.5f, 35.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 0.0f, -50.0f));
+
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -373,9 +387,9 @@ void process_input(GLFWwindow *window)
 	float cameraSpeed;
 
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
-		cameraSpeed = 2.5 * delta_time; 
+		cameraSpeed = 2.5 * delta_time * 5;	// double speed with "Shift" pressed
 	else
-		cameraSpeed = 2.5 * delta_time * 2;	// double speed with "Shift" pressed
+		cameraSpeed = 2.5 * delta_time; 
 
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
