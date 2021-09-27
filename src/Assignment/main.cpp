@@ -154,8 +154,17 @@ int main()
     // load and create a texture 
     // -------------------------
     unsigned int textureSky;
+	unsigned int textureStreetVertical, textureStreetHorizontal;
+	unsigned texRedDark, texRedBright, texRed, texGreen, texBlue;
 
     register_texture(&textureSky, "assets/textures/horror_night.jpg");
+    register_texture(&textureStreetVertical, "assets/textures/street_vertical.png");
+    register_texture(&textureStreetHorizontal, "assets/textures/street_horizontal.png");
+	register_texture(&texRedDark,"assets/textures/red_dark.jpg");
+	register_texture(&texRedBright,"assets/textures/red_bright.jpg");
+	register_texture(&texRed,"assets/textures/red.jpg");
+	register_texture(&texGreen,"assets/textures/green.jpg");
+	register_texture(&texBlue,"assets/textures/blue.jpg");
 
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
     // -------------------------------------------------------------------------------------------
@@ -207,8 +216,56 @@ int main()
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureSky);
 
+
 		model = glm::mat4();
+		model = translate(model, glm::vec3(0.0f, 0.9f, 80.0f));
 		model = glm::scale(model, glm::vec3(200.0f, 200.0f, 200.0f));
+
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Coordinate System
+		/*
+		if(SHOW_COORDINATE == true)
+		{
+			
+			glm::vec3 coord_scales[] = {
+				glm::vec3( 100.0f,  0.02f,  0.02f),	//X
+				glm::vec3( 0.02f,  100.0f,  0.02f),	//Y
+				glm::vec3( 0.02f,  0.02f,  100.0f),	//Z
+			};
+
+			glBindVertexArray(VAO_box);
+
+			glActiveTexture(GL_TEXTURE0);
+
+			for(int tab = 0; tab < 3; tab++)
+			{	
+				if(tab == 0) glBindTexture(GL_TEXTURE_2D, texRed); 	//X
+				if(tab == 1) glBindTexture(GL_TEXTURE_2D, texGreen);	//Y
+				if(tab == 2) glBindTexture(GL_TEXTURE_2D, texBlue);	//Z
+
+				model = glm::mat4();
+				model = glm::scale(model, coord_scales[tab]);
+
+				shader.setMat4("model", model);
+
+				glDrawArrays(GL_TRIANGLES, 0, 36);
+			}
+		}
+		*/
+
+
+		// Street
+		glBindVertexArray(VAO_box);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureStreetVertical);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-0.5f, -0.5f, 70.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 0.0f, -30.0f));
 
 		shader.setMat4("model", model);
 
@@ -235,7 +292,7 @@ int main()
 // ---------------------------------------------------------------------------------------------------------
 void process_input(GLFWwindow *window)
 {
-    	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         	glfwSetWindowShouldClose(window, true);
 
 	float cameraSpeed;

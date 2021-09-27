@@ -179,7 +179,7 @@ int main()
 	unsigned int tex_red_dark, tex_red_bright, tex_red, tex_green, tex_blue;
 
 	register_texture(&tex_wood,"assets/textures/wood2.jpg");
-	register_texture(&tex_street,"assets/textures/street.png");
+	register_texture(&tex_street,"assets/textures/street_vertical.png");
 	register_texture(&tex_grass,"assets/textures/grass.jpg");
 	register_texture(&tex_marble,"assets/textures/marble.jpg");
 	register_texture(&tex_curtin,"assets/textures/curtin.jpg");
