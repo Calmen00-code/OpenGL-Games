@@ -72,8 +72,8 @@ const unsigned int SCR_HEIGHT = 800;
 
 // camera
 glm::vec3 camera_pos   = glm::vec3(0.0f, 0.9f,  80.0f);
-glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 camera_up    = glm::vec3(0.0f, 1.0f,  0.0f);
+glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -3.0f);
+glm::vec3 camera_up    = glm::vec3(0.0f, 3.0f,  0.0f);
 
 // timing
 float delta_time = 0.0f;	// time between current frame and last frame
@@ -257,7 +257,7 @@ int main()
 		*/
 
 
-		// Street
+		// Street 1 (Vertical)
 		glBindVertexArray(VAO_box);
 
 		glActiveTexture(GL_TEXTURE0);
@@ -265,6 +265,34 @@ int main()
 
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(-0.5f, -0.5f, 70.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 0.0f, -50.0f));
+
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Street 2 (Left Horizontal)
+		glBindVertexArray(VAO_box);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureStreetHorizontal);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-3.5f, -0.5f, 60.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 0.0f, -30.0f));
+
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Street 3 (Right Horizontal)
+		glBindVertexArray(VAO_box);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureStreetHorizontal);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(2.5f, -0.5f, 60.0f));
 		model = glm::scale(model, glm::vec3(3.0f, 0.0f, -30.0f));
 
 		shader.setMat4("model", model);
