@@ -71,7 +71,7 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 800;
 
 // camera
-glm::vec3 camera_pos   = glm::vec3(0.0f, 0.9f,  3.0f);
+glm::vec3 camera_pos   = glm::vec3(0.0f, 0.9f,  80.0f);
 glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 camera_up    = glm::vec3(0.0f, 1.0f,  0.0f);
 
@@ -153,13 +153,9 @@ int main()
 
     // load and create a texture 
     // -------------------------
-    unsigned int textureSun, textureSky, textureCloud;
-	unsigned int textureSea;
+    unsigned int textureSky;
 
-    register_texture(&textureSun, "assets/textures/sun.jpg");
-    register_texture(&textureSky, "assets/textures/blue_sky.jpg");
-    register_texture(&textureCloud, "assets/textures/cloud.jpg");
-	register_texture(&textureSea, "assets/textures/sea.png");
+    register_texture(&textureSky, "assets/textures/horror_night.jpg");
 
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
     // -------------------------------------------------------------------------------------------
@@ -204,62 +200,20 @@ int main()
 
 		// Render objects
 		//------------------------------------------------------------------------------------------
-		
-		//Sky
-		glBindVertexArray(VAO_box);//This does not have to binded every time after first call, but just for consistency.
+
+		// Sky
+		glBindVertexArray(VAO_box);
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureSky);
 
 		model = glm::mat4();
-        model = glm::translate(model, glm::vec3(1.0f, 2.0f, -1.0f));  // sky on top right
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 10.0f));
+		model = glm::scale(model, glm::vec3(200.0f, 200.0f, 200.0f));
 
 		shader.setMat4("model", model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-        // Sun
-        glBindVertexArray(VAO_box);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textureSun);
-
-        model = glm::mat4();
-        model = glm::translate(model, glm::vec3(-1.0f, 2.0f, -1.0f));  // sun on the top left
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 10.0f));
-
-        shader.setMat4("model", model);
-
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-
-        // Cloud
-        glBindVertexArray(VAO_box);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textureCloud);
-
-        model = glm::mat4();
-		model = glm::translate(model, glm::vec3(0.0f, 2.0f, -1.0f));   // cloud on top middle
-		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 10.0f));
-
-        shader.setMat4("model", model);
-
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-		// Sea
-        glBindVertexArray(VAO_box);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textureSea);
-
-        model = glm::mat4();
-		model = glm::translate(model, glm::vec3(0.0f, 1.5f, -1.0f));   // sea on middle
-		model = glm::scale(model, glm::vec3(3.0f, 0.6f, 10.0f));
-
-        shader.setMat4("model", model);
-
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-
+		
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
