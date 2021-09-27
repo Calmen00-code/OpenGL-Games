@@ -126,7 +126,7 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader skyShader("assets/assignment/assignment_vertex_core.glsl", "assets/assignment/assignment_fragment_core.glsl");
+    Shader shader("assets/assignment/assignment_vertex_core.glsl", "assets/assignment/assignment_fragment_core.glsl");
 
 
 	// set up vertex data (and buffer(s)) and configure vertex attributes
@@ -154,39 +154,21 @@ int main()
     // load and create a texture 
     // -------------------------
     unsigned int textureSun, textureSky, textureCloud;
+	unsigned int textureSea;
 
     register_texture(&textureSun, "assets/textures/sun.jpg");
     register_texture(&textureSky, "assets/textures/blue_sky.jpg");
     register_texture(&textureCloud, "assets/textures/cloud.jpg");
+	register_texture(&textureSea, "assets/textures/sea.png");
 
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
     // -------------------------------------------------------------------------------------------
-    skyShader.use();
+    shader.use();
 
 	// pass projection matrix to shader (as projection matrix rarely changes there's no need to do this per frame)
 	// -----------------------------------------------------------------------------------------------------------
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 300.0f);
-	skyShader.setMat4("projection", projection);
-
-
-    /*
-    skyShader.setInt("textureSky", 0);
-    skyShader.setInt("textureSun", 1);
-    skyShader.setInt("textureCloud", 2);
-    */
-    // set transformation
-    /*
-    glm::mat4 transformSky = glm::mat4(1.0f);
-    glm::mat4 transformSun = glm::mat4(1.0f);
-    glm::mat4 transformCloud = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(-0.5f, 0.5f, 0.0f));  // sun on the top left
-	model = glm::translate(model, glm::vec3(0.0f, 0.5f, 0.0f));   // sky on middle
-    model = glm::translate(model, glm::vec3(0.5f, 0.5f, 0.0f));  // cloud on top right
-    skyShader.use();
-    skyShader.setMat4("transform", transformSky);
-    skyShader.setMat4("transform", transformSun);
-    skyShader.setMat4("transform", transformCloud);
-    */
+	shader.setMat4("projection", projection);
 
     // render loop
     // -----------
@@ -210,12 +192,12 @@ int main()
 
 
 		// activate shader
-		skyShader.use();
+		shader.use();
 
 
 		// camera/view transformation
 		glm::mat4 view = glm::lookAt(camera_pos, camera_pos + camera_front, camera_up);
-		skyShader.setMat4("view", view);
+		shader.setMat4("view", view);
 
 		//declare transformation matrix
 		glm::mat4 model = glm::mat4();
@@ -230,9 +212,10 @@ int main()
 		glBindTexture(GL_TEXTURE_2D, textureSky);
 
 		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(0.0f, 2.0f, 0.0f));   // sky on middle
+        model = glm::translate(model, glm::vec3(1.0f, 2.0f, -1.0f));  // sky on top right
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 10.0f));
 
-		skyShader.setMat4("model", model);
+		shader.setMat4("model", model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
@@ -242,61 +225,39 @@ int main()
         glBindTexture(GL_TEXTURE_2D, textureSun);
 
         model = glm::mat4();
-        model = glm::translate(model, glm::vec3(-1.0f, 2.0f, 0.0f));  // sun on the top left
+        model = glm::translate(model, glm::vec3(-1.0f, 2.0f, -1.0f));  // sun on the top left
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 10.0f));
 
-        skyShader.setMat4("model", model);
+        shader.setMat4("model", model);
 
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
         // Cloud
-        /*
-        glBindVertexArray(VAO);
+        glBindVertexArray(VAO_box);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureCloud);
 
         model = glm::mat4();
-        model = glm::translate(model, glm::vec3(0.5f, 0.5f, 0.0f));  // cloud on top right
+		model = glm::translate(model, glm::vec3(0.0f, 2.0f, -1.0f));   // cloud on top middle
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 10.0f));
 
-        skyShader.setMat4("model", model);
+        shader.setMat4("model", model);
 
         glDrawArrays(GL_TRIANGLES, 0, 36);
-        */
 
+		// Sea
+        glBindVertexArray(VAO_box);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textureSea);
 
-        // create transformation for shaders
-        // ---------------------------------
-        // float timeVal = glfwGetTime() / 10000.0f;
+        model = glm::mat4();
+		model = glm::translate(model, glm::vec3(0.0f, 1.5f, -1.0f));   // sea on middle
+		model = glm::scale(model, glm::vec3(3.0f, 0.6f, 10.0f));
 
-        // create transformation for skyShader
-        /*
-        glm::mat4 transformSky = glm::mat4(1.0f);
-        glm::mat4 transformSun = glm::mat4(1.0f);
-        glm::mat4 transformCloud = glm::mat4(1.0f);
+        shader.setMat4("model", model);
 
-        transformSun = glm::translate(transformSun, glm::vec3(-0.5f, 0.5f, 0.0f));  // sun on the top left
-        transformSky = glm::translate(transformSky, glm::vec3(0.0f, 0.5f, 0.0f));   // sky on middle
-        transformCloud = glm::translate(transformCloud, glm::vec3(0.5f, 0.5f, 0.0f));  // cloud on top right
-        transformSky = glm::rotate(transformSky, glm::radians(timeVal), glm::vec3(0.0f, 0.0f, 1.0f));
-        skyShader.setMat4("transform", transformSky);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        skyShader.setMat4("transform", transformSun);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        skyShader.setMat4("transform", transformCloud);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        */
-
-        // get matrix's uniform location and set matrix
-        /*
-        unsigned int transformSkyLoc = glGetUniformLocation(skyShader.ID, "transform");
-        glUniformMatrix4fv(transformSkyLoc, 1, GL_FALSE, glm::value_ptr(transformSky));
-        unsigned int transformSunLoc = glGetUniformLocation(skyShader.ID, "transform");
-        glUniformMatrix4fv(transformSunLoc, 1, GL_FALSE, glm::value_ptr(transformSun));
-        unsigned int transformCloudLoc = glGetUniformLocation(skyShader.ID, "transform");
-        glUniformMatrix4fv(transformCloudLoc, 1, GL_FALSE, glm::value_ptr(transformCloud));
-        */
-
-        // render the texture
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

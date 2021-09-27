@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\stb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\coordinate_system\multiple_cubes\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\coordinate_system\multiple_cubes\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\openglTutorial3\sample_1\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Assignment\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Tutorial\textures\4.1.texture.vs" />
+    <None Include="src\Tutorial\textures\4.1.texture.fs" />
+    <None Include="assets\textures\shader_fragment_core.glsl" />
+    <None Include="assets\shader_fragment_core.glsl" />
+    <None Include="assets\shader_vertex_core.glsl" />
+    <None Include="assets\triangle_fragment_core.glsl" />
+    <None Include="assets\triangle_fragment_core2.glsl" />
+    <None Include="assets\triangle_vertex_core.glsl" />
+    <None Include="assets\shader_fragment_core2.glsl" />
+    <None Include="assets\shader_fragment_core_transformation.glsl" />
+    <None Include="assets\shader_vertex_core_transformation.glsl" />
+    <None Include="assets\shader_fragment_core2_transformation.glsl" />
+    <None Include="assets\shader_class_fragment_core2.glsl" />
+    <None Include="assets\shader_class_vertex_core.glsl" />
+    <None Include="assets\shader_class_fragment_core.glsl" />
+    <None Include="assets\texture_fragment_core.glsl" />
+    <None Include="assets\texture_vertex_core.glsl" />
+    <None Include="assets\texture_vertex_transformation_core.glsl" />
+    <None Include="assets\texture_fragment_transformation_core.glsl" />
+    <None Include="assets\texture_vertex_io_core.glsl" />
+    <None Include="assets\texture_fragment_io_core.glsl" />
+    <None Include="assets\coordinate_vertex_core.glsl" />
+    <None Include="assets\coordinate_fragment_core.glsl" />
+    <None Include="assets\coordinate_multiple_cube_fragment_core.glsl" />
+    <None Include="assets\coordinate_multiple_cube_vertex_core.glsl" />
+    <None Include="assets\camera_look_at_vertex_core.glsl" />
+    <None Include="assets\camera_look_at_fragment_core.glsl" />
+    <None Include="assets\light_vertex_core.glsl" />
+    <None Include="assets\light_fragment_core.glsl" />
+    <None Include="assets\light_cube_vertex_core.glsl" />
+    <None Include="assets\light_cube_fragment_core.glsl" />
+    <None Include="assets\light_basic_vertex_core.glsl" />
+    <None Include="assets\light_basic_fragment_core.glsl" />
+    <None Include="assets\light_basic_cube_vertex_core.glsl" />
+    <None Include="assets\light_basic_cube_fragment_core.glsl" />
+    <None Include="assets\assignment\assignment_vertex_core.glsl" />
+    <None Include="assets\assignment\assignment_fragment_core.glsl" />
+    <None Include="assets\sample1_fragment_core.glsl" />
+    <None Include="assets\sample1_vertex_core.glsl" />
+    <None Include="assets\example1_vertex_core.glsl" />
+    <None Include="assets\example1_fragment_core.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\container2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\awesomeface.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\americanflag.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\obama10.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\villager.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\zombie.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\blue_sky.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\cloud.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\blue.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\bricks2.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\blue_specular.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\bricks2_disp.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\bricks2_normal.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\brickwall.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\brickwall_normal.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\curtin.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\container2_specular.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\curtin_specular.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\grass_specular.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\grass.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\green.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\green_specular.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\land.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\marble.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\marble_specular.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\marble2.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\matrix.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\metal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\night_sky.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\night_sky_specular.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\red.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\red_bright.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\red_bright_specular.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\red_dark.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\red_dark_specular.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\red_specular.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\street_specular.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\street.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\toy_box_diffuse.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\toy_box_disp.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\toy_box_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\white.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\window.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\window.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\wood2.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\wood.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\wood2_specular.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\sun.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\sea.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

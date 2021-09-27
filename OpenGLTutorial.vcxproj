@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{514ea32b-16d1-49f0-900b-c38fe0d253e8}</ProjectGuid>
+    <RootNamespace>OpenGLTutorial</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)\Linking\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)\Linking\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>GLFW\glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="lib\stb.cpp" />
+    <ClCompile Include="src\Assignment\main.cpp" />
+    <ClCompile Include="src\coordinate_system\multiple_cubes\main.cpp" />
+    <ClCompile Include="src\coordinate_system\multiple_cubes\shader.cpp" />
+    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\openglTutorial3\sample_1\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\assignment\assignment_fragment_core.glsl" />
+    <None Include="assets\assignment\assignment_vertex_core.glsl" />
+    <None Include="assets\camera_look_at_fragment_core.glsl" />
+    <None Include="assets\camera_look_at_vertex_core.glsl" />
+    <None Include="assets\coordinate_fragment_core.glsl" />
+    <None Include="assets\coordinate_multiple_cube_fragment_core.glsl" />
+    <None Include="assets\coordinate_multiple_cube_vertex_core.glsl" />
+    <None Include="assets\coordinate_vertex_core.glsl" />
+    <None Include="assets\example1_fragment_core.glsl" />
+    <None Include="assets\example1_vertex_core.glsl" />
+    <None Include="assets\light_basic_cube_fragment_core.glsl" />
+    <None Include="assets\light_basic_cube_vertex_core.glsl" />
+    <None Include="assets\light_basic_fragment_core.glsl" />
+    <None Include="assets\light_basic_vertex_core.glsl" />
+    <None Include="assets\light_cube_fragment_core.glsl" />
+    <None Include="assets\light_cube_vertex_core.glsl" />
+    <None Include="assets\light_fragment_core.glsl" />
+    <None Include="assets\light_vertex_core.glsl" />
+    <None Include="assets\sample1_fragment_core.glsl" />
+    <None Include="assets\sample1_vertex_core.glsl" />
+    <None Include="assets\shader_class_vertex_core.glsl" />
+    <None Include="assets\shader_class_fragment_core2.glsl" />
+    <None Include="assets\shader_fragment_core.glsl" />
+    <None Include="assets\shader_fragment_core2_transformation.glsl" />
+    <None Include="assets\shader_fragment_core_transformation.glsl" />
+    <None Include="assets\shader_vertex_core.glsl" />
+    <None Include="assets\shader_vertex_core_transformation.glsl" />
+    <None Include="assets\shader_class_fragment_core.glsl" />
+    <None Include="assets\textures\shader_fragment_core.glsl" />
+    <None Include="assets\shader_fragment_core2.glsl" />
+    <None Include="assets\texture_fragment_core.glsl" />
+    <None Include="assets\texture_fragment_io_core.glsl" />
+    <None Include="assets\texture_fragment_transformation_core.glsl" />
+    <None Include="assets\texture_vertex_core.glsl" />
+    <None Include="assets\texture_vertex_io_core.glsl" />
+    <None Include="assets\texture_vertex_transformation_core.glsl" />
+    <None Include="assets\triangle_fragment_core.glsl" />
+    <None Include="assets\triangle_fragment_core2.glsl" />
+    <None Include="assets\triangle_vertex_core.glsl" />
+    <None Include="src\Tutorial\textures\4.1.texture.fs" />
+    <None Include="src\Tutorial\textures\4.1.texture.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\shader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\americanflag.png" />
+    <Image Include="assets\textures\awesomeface.jpg" />
+    <Image Include="assets\textures\blue.jpg" />
+    <Image Include="assets\textures\blue_sky.jpg" />
+    <Image Include="assets\textures\blue_specular.jpg" />
+    <Image Include="assets\textures\bricks2.jpg" />
+    <Image Include="assets\textures\bricks2_disp.jpg" />
+    <Image Include="assets\textures\bricks2_normal.jpg" />
+    <Image Include="assets\textures\brickwall.jpg" />
+    <Image Include="assets\textures\brickwall_normal.jpg" />
+    <Image Include="assets\textures\cloud.jpg" />
+    <Image Include="assets\textures\container.jpg" />
+    <Image Include="assets\textures\container2.png" />
+    <Image Include="assets\textures\container2_specular.png" />
+    <Image Include="assets\textures\curtin.jpg" />
+    <Image Include="assets\textures\curtin_specular.jpg" />
+    <Image Include="assets\textures\grass.jpg" />
+    <Image Include="assets\textures\grass_specular.jpg" />
+    <Image Include="assets\textures\green.jpg" />
+    <Image Include="assets\textures\green_specular.jpg" />
+    <Image Include="assets\textures\land.png" />
+    <Image Include="assets\textures\marble.jpg" />
+    <Image Include="assets\textures\marble2.jpg" />
+    <Image Include="assets\textures\marble_specular.jpg" />
+    <Image Include="assets\textures\matrix.jpg" />
+    <Image Include="assets\textures\metal.png" />
+    <Image Include="assets\textures\night_sky.jpg" />
+    <Image Include="assets\textures\night_sky_specular.jpg" />
+    <Image Include="assets\textures\obama10.jpg" />
+    <Image Include="assets\textures\red.jpg" />
+    <Image Include="assets\textures\red_bright.jpg" />
+    <Image Include="assets\textures\red_bright_specular.jpg" />
+    <Image Include="assets\textures\red_dark.jpg" />
+    <Image Include="assets\textures\red_dark_specular.jpg" />
+    <Image Include="assets\textures\red_specular.jpg" />
+    <Image Include="assets\textures\sea.png" />
+    <Image Include="assets\textures\street.png" />
+    <Image Include="assets\textures\street_specular.png" />
+    <Image Include="assets\textures\sun.jpg" />
+    <Image Include="assets\textures\toy_box_diffuse.png" />
+    <Image Include="assets\textures\toy_box_disp.png" />
+    <Image Include="assets\textures\toy_box_normal.png" />
+    <Image Include="assets\textures\villager.png" />
+    <Image Include="assets\textures\white.jpg" />
+    <Image Include="assets\textures\window.jpg" />
+    <Image Include="assets\textures\window.png" />
+    <Image Include="assets\textures\wood.png" />
+    <Image Include="assets\textures\wood2.jpg" />
+    <Image Include="assets\textures\wood2_specular.jpg" />
+    <Image Include="assets\textures\zombie.jpg" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
