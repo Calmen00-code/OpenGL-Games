@@ -169,7 +169,7 @@ int main()
     // -------------------------
     unsigned int textureSky;
 	unsigned int textureStreetVertical, textureStreetHorizontal;
-	unsigned int textureLandVertical, textureLandHorizontal;
+	unsigned int textureLandVertical, textureLandHorizontal, textureLamp;
 	unsigned texRedDark, texRedBright, texRed, texGreen, texBlue;
 
     register_texture(&textureSky, "assets/textures/horror_night.jpg");
@@ -177,6 +177,7 @@ int main()
     register_texture(&textureStreetHorizontal, "assets/textures/street_horizontal.png");
 	register_texture(&textureLandVertical, "assets/textures/brickwall_vertical.jpg");
 	register_texture(&textureLandHorizontal, "assets/textures/land_horizontal.png");
+	register_texture(&textureLamp, "assets/textures/road_lamp.jpg");
 	register_texture(&texRedDark,"assets/textures/red_dark.jpg");
 	register_texture(&texRedBright,"assets/textures/red_bright.jpg");
 	register_texture(&texRed,"assets/textures/red.jpg");
@@ -282,7 +283,7 @@ int main()
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		// Side land 1 (Vertical)
+		// Side land 1, left (Vertical)
 		glBindVertexArray(VAO_box);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureLandVertical);
@@ -294,7 +295,18 @@ int main()
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		// Side land 2 (Vertical)
+		// Lamp Side Land 1, left (Vertical)
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureLamp);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-3.0f, -0.5f, 90.0f));
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Side land 1, Right (Vertical)
 		glBindVertexArray(VAO_box);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureLandVertical);
