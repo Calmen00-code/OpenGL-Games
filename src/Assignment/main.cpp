@@ -177,7 +177,7 @@ int main()
     register_texture(&textureStreetHorizontal, "assets/textures/street_horizontal.png");
 	register_texture(&textureLandVertical, "assets/textures/brickwall_vertical.jpg");
 	register_texture(&textureLandHorizontal, "assets/textures/brickwall_horizontal.jpg");
-	register_texture(&textureBox, "assets/textures/container2.jpg");
+	register_texture(&textureBox, "assets/textures/container.jpg");
 	register_texture(&texRedDark,"assets/textures/red_dark.jpg");
 	register_texture(&texRedBright,"assets/textures/red_bright.jpg");
 	register_texture(&texRed,"assets/textures/red.jpg");
@@ -308,6 +308,19 @@ int main()
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
+		// Item 1
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureBox);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-0.4f, -0.2f, 30.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
 		// Side land 1, Right (Vertical)
 		// First half
 		glBindVertexArray(VAO_box);
@@ -384,6 +397,18 @@ int main()
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
+		// Item 2
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureBox);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-11.0f, -0.2f, 25.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
 		// Street 3 (Right Horizontal)
 		glBindVertexArray(VAO_box);
 		glActiveTexture(GL_TEXTURE0);
@@ -431,6 +456,18 @@ int main()
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(13.5f, -0.5f, 35.8f));
 		model = glm::scale(model, glm::vec3(2.0f, 0.0f, -57.0f));
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Item 3
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureBox);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(11.0f, -0.2f, 30.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		shader.setMat4("model", model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
