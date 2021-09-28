@@ -169,15 +169,15 @@ int main()
     // -------------------------
     unsigned int textureSky;
 	unsigned int textureStreetVertical, textureStreetHorizontal;
-	unsigned int textureLandVertical, textureLandHorizontal, textureLamp;
+	unsigned int textureLandVertical, textureLandHorizontal, textureBox;
 	unsigned texRedDark, texRedBright, texRed, texGreen, texBlue;
 
     register_texture(&textureSky, "assets/textures/horror_night.jpg");
     register_texture(&textureStreetVertical, "assets/textures/street_vertical.png");
     register_texture(&textureStreetHorizontal, "assets/textures/street_horizontal.png");
 	register_texture(&textureLandVertical, "assets/textures/brickwall_vertical.jpg");
-	register_texture(&textureLandHorizontal, "assets/textures/land_horizontal.png");
-	register_texture(&textureLamp, "assets/textures/road_lamp.jpg");
+	register_texture(&textureLandHorizontal, "assets/textures/brickwall_horizontal.jpg");
+	register_texture(&textureBox, "assets/textures/container2.jpg");
 	register_texture(&texRedDark,"assets/textures/red_dark.jpg");
 	register_texture(&texRedBright,"assets/textures/red_bright.jpg");
 	register_texture(&texRed,"assets/textures/red.jpg");
@@ -284,25 +284,51 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// Side land 1, left (Vertical)
+		// First half
 		glBindVertexArray(VAO_box);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureLandVertical);
 
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(-3.0f, -0.5f, 90.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 0.0f, -30.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 0.0f, -57.0f));
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Second half
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureLandVertical);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-3.0f, -0.5f, 36.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 0.0f, -45.0f));
 		shader.setMat4("model", model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// Side land 1, Right (Vertical)
+		// First half
 		glBindVertexArray(VAO_box);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureLandVertical);
 
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(2.0f, -0.5f, 90.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 0.0f, -30.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 0.0f, -57.0f));
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Second half
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureLandVertical);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(2.0f, -0.5f, 36.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 0.0f, -45.0f));
 		shader.setMat4("model", model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -316,6 +342,31 @@ int main()
 		model = glm::translate(model, glm::vec3(-3.5f, -0.5f, 60.0f));
 		model = glm::scale(model, glm::vec3(3.0f, 0.0f, -3.0f));
 
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Side land 2 (Left Horizontal)
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureLandHorizontal);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-7.5f, -0.5f, 62.8f));
+		model = glm::scale(model, glm::vec3(11.0f, 0.0f, -3.0f));
+
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Side land 2 (Left Vertical)
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureLandVertical);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-13.5f, -0.5f, 35.8f));
+		model = glm::scale(model, glm::vec3(2.0f, 0.0f, -57.0f));
 		shader.setMat4("model", model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -346,6 +397,19 @@ int main()
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
+		// Side land 3 (Right Horizontal)
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureLandHorizontal);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(7.5f, -0.5f, 62.8f));
+		model = glm::scale(model, glm::vec3(11.0f, 0.0f, -3.0f));
+
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
 		// Street 3 (Right Vertical)
 		glBindVertexArray(VAO_box);
 		glActiveTexture(GL_TEXTURE0);
@@ -359,6 +423,17 @@ int main()
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
+		// Side land 3 (Right Vertical)
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureLandVertical);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(13.5f, -0.5f, 35.8f));
+		model = glm::scale(model, glm::vec3(2.0f, 0.0f, -57.0f));
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 		
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
