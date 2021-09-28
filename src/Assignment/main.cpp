@@ -170,6 +170,7 @@ int main()
     unsigned int textureSky;
 	unsigned int textureStreetVertical, textureStreetHorizontal;
 	unsigned int textureLandVertical, textureLandHorizontal, textureBox;
+	unsigned int textureAWP, textureKnife, textureGrenade;
 	unsigned texRedDark, texRedBright, texRed, texGreen, texBlue;
 
     register_texture(&textureSky, "assets/textures/horror_night.jpg");
@@ -178,6 +179,9 @@ int main()
 	register_texture(&textureLandVertical, "assets/textures/brickwall_vertical.jpg");
 	register_texture(&textureLandHorizontal, "assets/textures/brickwall_horizontal.jpg");
 	register_texture(&textureBox, "assets/textures/container.jpg");
+	register_texture(&textureAWP, "assets/textures/awp_skin1.jpeg");
+	register_texture(&textureKnife, "assets/textures/knife.jfif");
+	register_texture(&textureGrenade, "assets/textures/grenade.jfif");
 	register_texture(&texRedDark,"assets/textures/red_dark.jpg");
 	register_texture(&texRedBright,"assets/textures/red_bright.jpg");
 	register_texture(&texRed,"assets/textures/red.jpg");
@@ -309,6 +313,7 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// Item 1
+		/* Item Box */
 		glBindVertexArray(VAO_box);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureBox);
@@ -320,6 +325,18 @@ int main()
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
+		/* AWP */
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureAWP);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-0.4f, 0.5f, 30.0f));
+        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(80.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.2f, 0.0f));
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// Side land 1, Right (Vertical)
 		// First half
@@ -398,6 +415,7 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// Item 2
+		/* Item Box */
 		glBindVertexArray(VAO_box);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureBox);
@@ -408,6 +426,20 @@ int main()
 		shader.setMat4("model", model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		/* Knife */
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureKnife);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-11.0f, 0.5f, 25.0f));
+        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(80.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.2f, 0.0f));
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
 
 		// Street 3 (Right Horizontal)
 		glBindVertexArray(VAO_box);
@@ -468,6 +500,19 @@ int main()
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(11.0f, -0.2f, 30.0f));
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		shader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		/* Grenade */
+		glBindVertexArray(VAO_box);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGrenade);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(11.0f, 0.5f, 30.0f));
+        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(80.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.0f));
 		shader.setMat4("model", model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
