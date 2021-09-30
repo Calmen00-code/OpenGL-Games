@@ -69,6 +69,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void renderZombie(glm::mat4 model, Shader shader, unsigned int VAO_box);
 void renderVillager(glm::mat4 model, Shader shader, unsigned int VAO_box);
+void toggle_button_distance(glm::vec3 button_pos);
 
 // settings
 const unsigned int SCR_WIDTH = 1900;
@@ -182,7 +183,8 @@ int main()
 	unsigned int textureStreetVertical, textureStreetHorizontal;
 	unsigned int textureLandVertical, textureLandHorizontal, textureBox;
 	unsigned int textureAWP, textureKnife, textureGrenade;
-	unsigned int textureVillager;
+	unsigned int texWood, texMarble;
+	unsigned int texRedDark, texRedBright;
 
     register_texture(&textureSky, "assets/textures/horror_night.jpg");
     register_texture(&textureStreetVertical, "assets/textures/street_vertical.png");
@@ -193,7 +195,10 @@ int main()
 	register_texture(&textureAWP, "assets/textures/awp_skin1.jpeg");
 	register_texture(&textureKnife, "assets/textures/knife.jfif");
 	register_texture(&textureGrenade, "assets/textures/grenade.jfif");
-	register_texture(&textureVillager, "assets/textures/villager.jpg");
+	register_texture(&texWood,"assets/textures/wood2.jpg");
+	register_texture(&texMarble,"assets/textures/marble.jpg");
+	register_texture(&texRedDark,"assets/textures/red_dark.jpg");
+	register_texture(&texRedBright,"assets/textures/red_bright.jpg");
 
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
     // -------------------------------------------------------------------------------------------
@@ -424,7 +429,90 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// Item 2
-		/* Item Box */
+		//Table (4 tall boxes for legs & 1 thin box as table top)
+		glm::vec3 table_scales[] = {
+			glm::vec3( 1.0f,  0.1f,  1.0f),	//top
+			glm::vec3( 0.1f,  0.5f,  0.1f),//near left
+			glm::vec3( 0.1f,  0.5f,  0.1f),	//near right
+			glm::vec3( 0.1f,  0.5f,  0.1f),//far left
+			glm::vec3( 0.1f,  0.5f,  0.1f),	//far right
+		};
+		glm::vec3 table_positions[] = {
+			glm::vec3( 0.0f,  0.5f,  0.0f),		//top
+			glm::vec3(-0.45f, 0.0f,  0.45f),	//near left
+			glm::vec3( 0.45f, 0.0f,  0.45f),	//near right
+			glm::vec3(-0.45f, 0.0f, -0.45f),	//far left
+			glm::vec3( 0.45f, 0.0f, -0.45f),	//far right
+		};
+
+		glBindVertexArray(VAO_box);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texWood);
+
+		for(int tab = 0; tab < 5; tab++)
+		{	
+			model = glm::mat4();
+			model = glm::translate(model, table_positions[tab]);
+			model = glm::scale(model, table_scales[tab]);
+			model = glm::translate(model, glm::vec3(0.0f, 0.5f, 0.0f));
+
+			shader.setMat4("model", model);
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+
+		//Button on table (1 big box & 1 small box as button)
+		glm::vec3 button_scales[] = {
+			glm::vec3( 0.2f,  0.12f,  0.2f),		//case
+			glm::vec3( 0.12f,  0.12f,  0.12f),		//button
+		};
+
+		float red_button_height = 0.05f;
+		if(BUTTON_PRESSED == true) {red_button_height -= 0.02f;}
+
+		glm::vec3 button_positions[] = {
+			glm::vec3( 0.0f,  0.0f,  0.0f),			//case
+			glm::vec3( 0.0f,  red_button_height,  0.0f),	//button
+		};
+
+		glm::vec3 button_final_location = glm::vec3(0.0f, 0.56f, 0.25f);
+		toggle_button_distance(button_final_location); 
+
+		glBindVertexArray(VAO_box);
+		
+		for(int tab = 0; tab < 2; tab++)
+		{	
+			glActiveTexture(GL_TEXTURE0);
+			if(tab == 0)
+			{	
+				glBindTexture(GL_TEXTURE_2D, texMarble);
+			}
+			else
+			{
+				if(BUTTON_PRESSED == false)
+				{
+					glBindTexture(GL_TEXTURE_2D, texRedDark); 	// Not pressed
+				}
+				else
+				{
+					glBindTexture(GL_TEXTURE_2D, texRedBright);	// Pressed
+				}
+			}
+
+			model = glm::mat4();
+			model = glm::translate(model, button_final_location);
+			model = glm::translate(model, button_positions[tab]);
+			model = glm::scale(model, button_scales[tab]);
+			model = glm::translate(model, glm::vec3(0.0f, 0.5f, 0.0f));
+
+			shader.setMat4("model", model);
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+		/*
 		glBindVertexArray(VAO_box);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureBox);
@@ -435,6 +523,7 @@ int main()
 		shader.setMat4("model", model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+		*/
 
 		/* Knife */
 		glBindVertexArray(VAO_box);
@@ -533,7 +622,7 @@ int main()
 			renderVillager(model, shader, VAO_box);
 		}
 		else {
-			renderZombie(model, shader, VAO_box);
+			// renderZombie(model, shader, VAO_box);
 		}
 		
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -563,9 +652,9 @@ void process_input(GLFWwindow *window)
 	float cameraSpeed;
 
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
-		cameraSpeed = 2.5 * delta_time; 
+		cameraSpeed = 2.5 * delta_time * 2; 
 	else
-		cameraSpeed = 2.5 * delta_time * 5;	// double speed with "Shift" pressed
+		cameraSpeed = 2.5 * delta_time * 4;	// double speed with "Shift" pressed
 
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -861,4 +950,13 @@ void renderZombie(glm::mat4 model, Shader shader, unsigned int VAO_box) {
 	model = glm::scale(model, glm::vec3(2.0f, 7.5f, 2.0f));
 	shader.setMat4("model", model);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
+}
+
+// Toggle button pressing only if the camera is close enough.
+void toggle_button_distance(glm::vec3 button_pos)
+{
+	if(glm::length(camera_pos - button_pos) <= 1.6f)
+		BUTTON_CLOSE_ENOUGH = true;
+	else
+		BUTTON_CLOSE_ENOUGH = false;
 }
