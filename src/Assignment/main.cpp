@@ -67,13 +67,14 @@ void process_input(GLFWwindow* window);
 void register_texture(unsigned int * tex, const char *path);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void renderZombie(glm::mat4 model, Shader shader, unsigned int VAO_box);
 
 // settings
 const unsigned int SCR_WIDTH = 1900;
 const unsigned int SCR_HEIGHT = 1000;
 
 // camera
-glm::vec3 camera_pos   = glm::vec3(0.0f, 0.9f,  90.0f);
+glm::vec3 camera_pos   = glm::vec3(0.0f, 0.9f,  120.0f);
 glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 camera_up    = glm::vec3(0.0f, 1.0f,  0.0f);
 
@@ -90,11 +91,20 @@ float last_frame = 0.0f;
 
 //Toggle (Animation or states)
 bool BUTTON_PRESSED = false;
+bool KEY_R_PRESSED = false;
 int BUTTON_DELAY = 0;
 bool BUTTON_CLOSE_ENOUGH = false;
 
 bool SHOW_COORDINATE = false;
 int SHOW_DELAY = 0;
+
+// Countdown until the button trigger can be pressed again.
+// This prevents accidental burst repeat clicking of the key.
+void update_delay()
+{
+	if(BUTTON_DELAY > 0) BUTTON_DELAY -= 1;
+	if(SHOW_DELAY > 0) SHOW_DELAY -= 1;
+}
 
 int main()
 {
@@ -171,7 +181,7 @@ int main()
 	unsigned int textureStreetVertical, textureStreetHorizontal;
 	unsigned int textureLandVertical, textureLandHorizontal, textureBox;
 	unsigned int textureAWP, textureKnife, textureGrenade;
-	unsigned texRedDark, texRedBright, texRed, texGreen, texBlue;
+	unsigned int textureVillager;
 
     register_texture(&textureSky, "assets/textures/horror_night.jpg");
     register_texture(&textureStreetVertical, "assets/textures/street_vertical.png");
@@ -182,11 +192,7 @@ int main()
 	register_texture(&textureAWP, "assets/textures/awp_skin1.jpeg");
 	register_texture(&textureKnife, "assets/textures/knife.jfif");
 	register_texture(&textureGrenade, "assets/textures/grenade.jfif");
-	register_texture(&texRedDark,"assets/textures/red_dark.jpg");
-	register_texture(&texRedBright,"assets/textures/red_bright.jpg");
-	register_texture(&texRed,"assets/textures/red.jpg");
-	register_texture(&texGreen,"assets/textures/green.jpg");
-	register_texture(&texBlue,"assets/textures/blue.jpg");
+	register_texture(&textureVillager, "assets/textures/villager.jpg");
 
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
     // -------------------------------------------------------------------------------------------
@@ -207,6 +213,8 @@ int main()
 		delta_time = currentFrame - last_frame;
 		last_frame = currentFrame;
 
+		// update delay countdown
+		update_delay();
 
 		// input
 		// -----
@@ -516,6 +524,24 @@ int main()
 		shader.setMat4("model", model);
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Display villager if R is pressed
+		// else display zombie
+		if (KEY_R_PRESSED == true) {
+			// Display villager
+			glBindVertexArray(VAO_box);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, textureVillager);
+
+			model = glm::mat4();
+			model = glm::translate(model, glm::vec3(-0.5f, 10.5f, 5.0f));
+			model = glm::scale(model, glm::vec3(8.0f, 8.0f, 0.0f));
+			shader.setMat4("model", model);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+		else {
+			renderZombie(model, shader, VAO_box);
+		}
 		
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -544,9 +570,9 @@ void process_input(GLFWwindow *window)
 	float cameraSpeed;
 
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
-		cameraSpeed = 2.5 * delta_time * 5;	// double speed with "Shift" pressed
-	else
 		cameraSpeed = 2.5 * delta_time; 
+	else
+		cameraSpeed = 2.5 * delta_time * 5;	// double speed with "Shift" pressed
 
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -557,6 +583,8 @@ void process_input(GLFWwindow *window)
 		camera_pos -= glm::normalize(glm::cross(camera_front, camera_up)) * cameraSpeed;
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera_pos += glm::normalize(glm::cross(camera_front, camera_up)) * cameraSpeed;
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+		KEY_R_PRESSED = !KEY_R_PRESSED;
 
 	//toggle red button
 	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS && BUTTON_DELAY == 0 && BUTTON_CLOSE_ENOUGH == true)
@@ -664,4 +692,66 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
         fov = 1.0f;
     if (fov > 45.0f)
         fov = 45.0f;
+}
+
+void renderZombie(glm::mat4 model, Shader shader, unsigned int VAO_box) {
+	unsigned int zombieTexture, zombieFace;
+
+	register_texture(&zombieTexture, "assets/textures/zombie_color.png");
+	register_texture(&zombieFace, "assets/textures/zombie_face.png");
+
+	// head
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, zombieTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(-0.5f, 20.5f, 5.0f));
+	model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// face
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, zombieFace);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(-0.5f, 20.5f, 7.0f));
+	model = glm::scale(model, glm::vec3(4.0f, 4.0f, 1.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// body
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, zombieTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(-0.5f, 15.5f, 5.0f));
+	model = glm::scale(model, glm::vec3(4.0f, 7.0f, 4.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// left hand
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, zombieTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(-3.5f, 17.5f, 7.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 2.0f, 7.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// right hand
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, zombieTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(2.5f, 17.5f, 7.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 2.0f, 7.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
