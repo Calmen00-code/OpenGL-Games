@@ -68,6 +68,7 @@ void register_texture(unsigned int * tex, const char *path);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void renderZombie(glm::mat4 model, Shader shader, unsigned int VAO_box);
+void renderVillager(glm::mat4 model, Shader shader, unsigned int VAO_box);
 
 // settings
 const unsigned int SCR_WIDTH = 1900;
@@ -529,15 +530,7 @@ int main()
 		// else display zombie
 		if (KEY_R_PRESSED == true) {
 			// Display villager
-			glBindVertexArray(VAO_box);
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, textureVillager);
-
-			model = glm::mat4();
-			model = glm::translate(model, glm::vec3(-0.5f, 10.5f, 5.0f));
-			model = glm::scale(model, glm::vec3(8.0f, 8.0f, 0.0f));
-			shader.setMat4("model", model);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
+			renderVillager(model, shader, VAO_box);
 		}
 		else {
 			renderZombie(model, shader, VAO_box);
@@ -694,16 +687,106 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
         fov = 45.0f;
 }
 
-void renderZombie(glm::mat4 model, Shader shader, unsigned int VAO_box) {
-	unsigned int zombieTexture, zombieFace;
+void renderVillager(glm::mat4 model, Shader shader, unsigned int VAO_box) {
+	unsigned int villagerTexture, villagerFace;
+	unsigned int greenTexture;
 
-	register_texture(&zombieTexture, "assets/textures/zombie_color.png");
+	register_texture(&villagerTexture, "assets/textures/green_specular.jpg");
+	register_texture(&villagerFace, "assets/textures/villager_face.png");
+	register_texture(&greenTexture, "assets/textures/green.jpg");
+
+	// head
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, villagerTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(-0.5f, 20.5f, 5.0f));
+	model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// face
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, villagerFace);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(-0.5f, 20.5f, 7.0f));
+	model = glm::scale(model, glm::vec3(4.0f, 4.0f, 1.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// body
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, villagerTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(-0.5f, 15.5f, 5.0f));
+	model = glm::scale(model, glm::vec3(4.0f, 7.0f, 4.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// left hand
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, greenTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(-3.5f, 15.5f, 5.0f));
+    model = glm::rotate(model, glm::radians(-30.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 6.0f, 3.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// right hand
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, greenTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(2.5f, 15.5f, 5.0f));
+    model = glm::rotate(model, glm::radians(30.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 6.0f, 3.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// left leg
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, greenTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(-3.5f, 9.5f, 5.0f));
+    model = glm::rotate(model, glm::radians(-30.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 7.5f, 2.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// right leg
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, greenTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(2.5f, 9.5f, 5.0f));
+    model = glm::rotate(model, glm::radians(30.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 7.5f, 2.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+}
+
+void renderZombie(glm::mat4 model, Shader shader, unsigned int VAO_box) {
+	unsigned int villagerTexture, zombieFace;
+
+	register_texture(&villagerTexture, "assets/textures/zombie_color.png");
 	register_texture(&zombieFace, "assets/textures/zombie_face.png");
 
 	// head
 	glBindVertexArray(VAO_box);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, zombieTexture);
+	glBindTexture(GL_TEXTURE_2D, villagerTexture);
 
 	model = glm::mat4();
 	model = glm::translate(model, glm::vec3(-0.5f, 20.5f, 5.0f));
@@ -725,7 +808,7 @@ void renderZombie(glm::mat4 model, Shader shader, unsigned int VAO_box) {
 	// body
 	glBindVertexArray(VAO_box);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, zombieTexture);
+	glBindTexture(GL_TEXTURE_2D, villagerTexture);
 
 	model = glm::mat4();
 	model = glm::translate(model, glm::vec3(-0.5f, 15.5f, 5.0f));
@@ -736,7 +819,7 @@ void renderZombie(glm::mat4 model, Shader shader, unsigned int VAO_box) {
 	// left hand
 	glBindVertexArray(VAO_box);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, zombieTexture);
+	glBindTexture(GL_TEXTURE_2D, villagerTexture);
 
 	model = glm::mat4();
 	model = glm::translate(model, glm::vec3(-3.5f, 17.5f, 7.0f));
@@ -747,11 +830,35 @@ void renderZombie(glm::mat4 model, Shader shader, unsigned int VAO_box) {
 	// right hand
 	glBindVertexArray(VAO_box);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, zombieTexture);
+	glBindTexture(GL_TEXTURE_2D, villagerTexture);
 
 	model = glm::mat4();
 	model = glm::translate(model, glm::vec3(2.5f, 17.5f, 7.0f));
 	model = glm::scale(model, glm::vec3(2.0f, 2.0f, 7.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// left leg
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, villagerTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(-3.5f, 9.5f, 5.0f));
+    model = glm::rotate(model, glm::radians(-30.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 7.5f, 2.0f));
+	shader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// right leg
+	glBindVertexArray(VAO_box);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, villagerTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(2.5f, 9.5f, 5.0f));
+    model = glm::rotate(model, glm::radians(30.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 7.5f, 2.0f));
 	shader.setMat4("model", model);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
