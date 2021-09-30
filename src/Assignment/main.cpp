@@ -327,17 +327,87 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// Item 1
-		/* Item Box */
+		//Table (4 tall boxes for legs & 1 thin box as table top)
+		glm::vec3 table_scales[] = {
+			glm::vec3( 1.0f,  0.1f,  1.0f),	//top
+			glm::vec3( 0.1f,  0.5f,  0.1f),	//near left
+			glm::vec3( 0.1f,  0.5f,  0.1f),	//near right
+			glm::vec3( 0.1f,  0.5f,  0.1f),	//far left
+			glm::vec3( 0.1f,  0.5f,  0.1f),	//far right
+		};
+		glm::vec3 table_positions[] = {
+			glm::vec3(0.0f,  0.1f,  0.0f),		//top
+			glm::vec3(-0.80f, -0.1f,  27.45f),	//near left
+			glm::vec3(0.10f, -0.1f,  27.45f),	//near right
+			glm::vec3(-0.80f, -0.1f, 26.55f),	//far left
+			glm::vec3(0.10f, -0.1f, 26.55f),	//far right
+		};
+
 		glBindVertexArray(VAO_box);
+
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureBox);
+		glBindTexture(GL_TEXTURE_2D, texWood);
 
-		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(-0.4f, -0.2f, 30.0f));
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-		shader.setMat4("model", model);
+		for(int tab = 0; tab < 5; tab++)
+		{	
+			model = glm::mat4();
+			model = glm::translate(model, table_positions[tab]);
+			model = glm::scale(model, table_scales[tab]);
+			model = glm::translate(model, glm::vec3(-0.4f, -0.2f, 30.0f));
 
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+			shader.setMat4("model", model);
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+		//Button on table (1 big box & 1 small box as button)
+		glm::vec3 button_scales[] = {
+			glm::vec3( 0.2f,  0.12f,  0.2f),		//case
+			glm::vec3( 0.12f,  0.12f,  0.12f),		//button
+		};
+
+		float red_button_height = -0.45f;
+		if(BUTTON_PRESSED == true) {red_button_height -= 1.02f;}
+
+		glm::vec3 button_positions[] = {
+			glm::vec3( -0.50f,  -0.5f,  29.88f),			//case
+			glm::vec3( -0.50f,  red_button_height,  29.88f),	//button
+		};
+
+		glm::vec3 button_final_location = glm::vec3(0.0f, 0.56f, 0.25f);
+		toggle_button_distance(button_final_location); 
+
+		glBindVertexArray(VAO_box);
+
+		for(int tab = 0; tab < 2; tab++)
+		{	
+			glActiveTexture(GL_TEXTURE0);
+			if(tab == 0)
+			{	
+				glBindTexture(GL_TEXTURE_2D, texMarble);
+			}
+			else
+			{
+				if(BUTTON_PRESSED == false)
+				{
+					glBindTexture(GL_TEXTURE_2D, texRedDark); 	// Not pressed
+				}
+				else
+				{
+					glBindTexture(GL_TEXTURE_2D, texRedBright);	// Pressed
+				}
+			}
+
+			model = glm::mat4();
+			model = glm::translate(model, button_final_location);
+			model = glm::translate(model, button_positions[tab]);
+			model = glm::scale(model, button_scales[tab]);
+			model = glm::translate(model, glm::vec3(0.0f, 0.5f, 0.0f));
+
+			shader.setMat4("model", model);
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
 
 		/* AWP */
 		glBindVertexArray(VAO_box);
@@ -430,14 +500,14 @@ int main()
 
 		// Item 2
 		//Table (4 tall boxes for legs & 1 thin box as table top)
-		glm::vec3 table_scales[] = {
+		glm::vec3 table_scales_2[] = {
 			glm::vec3( 1.0f,  0.1f,  1.0f),	//top
 			glm::vec3( 0.1f,  0.5f,  0.1f),//near left
 			glm::vec3( 0.1f,  0.5f,  0.1f),	//near right
 			glm::vec3( 0.1f,  0.5f,  0.1f),//far left
 			glm::vec3( 0.1f,  0.5f,  0.1f),	//far right
 		};
-		glm::vec3 table_positions[] = {
+		glm::vec3 table_positions_2[] = {
 			glm::vec3(-11.0f, 0.0f, 25.0f),		//top
 			glm::vec3(-10.55f, -0.4f, 25.45f),	//near left
 			glm::vec3(-11.45f, -0.4f, 25.45f),	//near right
@@ -453,8 +523,8 @@ int main()
 		for(int tab = 0; tab < 5; tab++)
 		{	
 			model = glm::mat4();
-			model = glm::translate(model, table_positions[tab]);
-			model = glm::scale(model, table_scales[tab]);
+			model = glm::translate(model, table_positions_2[tab]);
+			model = glm::scale(model, table_scales_2[tab]);
 			model = glm::translate(model, glm::vec3(0.0f, 0.5f, 0.0f));
 
 			shader.setMat4("model", model);
@@ -464,21 +534,21 @@ int main()
 
 
 		//Button on table (1 big box & 1 small box as button)
-		glm::vec3 button_scales[] = {
+		glm::vec3 button_scales_2[] = {
 			glm::vec3( 0.2f,  0.12f,  0.2f),		//case
 			glm::vec3( 0.12f,  0.12f,  0.12f),		//button
 		};
 
-		float red_button_height = -0.45f;
+		red_button_height = -0.45f;
 		if(BUTTON_PRESSED == true) {red_button_height -= 1.02f;}
 
-		glm::vec3 button_positions[] = {
+		glm::vec3 button_positions_2[] = {
 			glm::vec3( -11.0f,  -0.5f,  25.0f),			//case
 			glm::vec3( -11.0f,  red_button_height,  25.0f),	//button
 		};
 
-		glm::vec3 button_final_location = glm::vec3(0.0f, 0.56f, 0.25f);
-		toggle_button_distance(button_final_location); 
+		glm::vec3 button_final_location_2 = glm::vec3(0.0f, 0.56f, 0.25f);
+		toggle_button_distance(button_final_location_2); 
 
 		glBindVertexArray(VAO_box);
 		
@@ -503,8 +573,8 @@ int main()
 
 			model = glm::mat4();
 			model = glm::translate(model, button_final_location);
-			model = glm::translate(model, button_positions[tab]);
-			model = glm::scale(model, button_scales[tab]);
+			model = glm::translate(model, button_positions_2[tab]);
+			model = glm::scale(model, button_scales_2[tab]);
 			model = glm::translate(model, glm::vec3(0.0f, 0.5f, 0.0f));
 
 			shader.setMat4("model", model);
@@ -622,7 +692,7 @@ int main()
 			renderVillager(model, shader, VAO_box);
 		}
 		else {
-			renderZombie(model, shader, VAO_box);
+			// renderZombie(model, shader, VAO_box);
 		}
 		
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -654,7 +724,7 @@ void process_input(GLFWwindow *window)
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
 		cameraSpeed = 2.5 * delta_time * 2; 
 	else
-		cameraSpeed = 2.5 * delta_time * 4;	// double speed with "Shift" pressed
+		cameraSpeed = 2.5 * delta_time * 50;	// double speed with "Shift" pressed
 
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)

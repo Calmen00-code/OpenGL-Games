@@ -31,7 +31,7 @@ float lastFrame = 0.0f;
 
 // lighting
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
-float light_x = 2.0, light_y = 2.0, light_z = 2.0;
+float light_x = 1.0, light_y = 1.0, light_z = 1.0;
 
 int main()
 {
@@ -178,14 +178,14 @@ int main()
         lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.1f);
 
         if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
-            light_x -= 1.0f;
-            light_y -= 1.0f;
-            light_z -= 1.0f;
+            light_x -= 0.1f;
+            light_y -= 0.1f;
+            light_z -= 0.1f;
         } 
         else if (glfwGetKey(window, GLFW_KEY_L)) {
-            light_x += 1.0f;
-            light_y += 1.0f;
-            light_z += 1.0f;
+            light_x += 0.1f;
+            light_y += 0.1f;
+            light_z += 0.1f;
         }
         else {
             lightingShader.setVec3("lightColor", light_x, light_y, light_z);
