@@ -438,11 +438,11 @@ int main()
 			glm::vec3( 0.1f,  0.5f,  0.1f),	//far right
 		};
 		glm::vec3 table_positions[] = {
-			glm::vec3( 0.0f,  0.5f,  0.0f),		//top
-			glm::vec3(-0.45f, 0.0f,  0.45f),	//near left
-			glm::vec3( 0.45f, 0.0f,  0.45f),	//near right
-			glm::vec3(-0.45f, 0.0f, -0.45f),	//far left
-			glm::vec3( 0.45f, 0.0f, -0.45f),	//far right
+			glm::vec3(-11.0f, 0.0f, 25.0f),		//top
+			glm::vec3(-10.55f, -0.4f, 25.45f),	//near left
+			glm::vec3(-11.45f, -0.4f, 25.45f),	//near right
+			glm::vec3(-10.55f, -0.4f, 24.55f),	//far left
+			glm::vec3(-11.45f, -0.4f, 24.45f),	//far right
 		};
 
 		glBindVertexArray(VAO_box);
@@ -469,12 +469,12 @@ int main()
 			glm::vec3( 0.12f,  0.12f,  0.12f),		//button
 		};
 
-		float red_button_height = 0.05f;
-		if(BUTTON_PRESSED == true) {red_button_height -= 0.02f;}
+		float red_button_height = -0.45f;
+		if(BUTTON_PRESSED == true) {red_button_height -= 1.02f;}
 
 		glm::vec3 button_positions[] = {
-			glm::vec3( 0.0f,  0.0f,  0.0f),			//case
-			glm::vec3( 0.0f,  red_button_height,  0.0f),	//button
+			glm::vec3( -11.0f,  -0.5f,  25.0f),			//case
+			glm::vec3( -11.0f,  red_button_height,  25.0f),	//button
 		};
 
 		glm::vec3 button_final_location = glm::vec3(0.0f, 0.56f, 0.25f);
@@ -622,7 +622,7 @@ int main()
 			renderVillager(model, shader, VAO_box);
 		}
 		else {
-			// renderZombie(model, shader, VAO_box);
+			renderZombie(model, shader, VAO_box);
 		}
 		
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
