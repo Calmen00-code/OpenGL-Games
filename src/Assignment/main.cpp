@@ -13,6 +13,7 @@
 
 #include <learnopengl/shader_m.h>
 #include <stb/stb_image.h>
+#include <learnopengl/camera.h>
 
 // Box coordinate with 36 vertices.
 // Every 3 coordinates will form 1 triangle.
@@ -76,15 +77,19 @@ const unsigned int SCR_WIDTH = 1900;
 const unsigned int SCR_HEIGHT = 1000;
 
 // camera
-glm::vec3 camera_pos   = glm::vec3(0.0f, 0.9f,  120.0f);
-glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 camera_up    = glm::vec3(0.0f, 1.0f,  0.0f);
-
+//glm::vec3 camera_pos   = glm::vec3(0.0f, 0.9f,  120.0f);
+//glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
+//glm::vec3 camera_up    = glm::vec3(0.0f, 1.0f,  0.0f);
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+float lastX = SCR_WIDTH / 2.0f;
+float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
+
+// bool firstMouse = true;
 float yaw   = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
 float pitch =  0.0f;
-float lastX =  800.0f / 2.0;
-float lastY =  600.0 / 2.0;
+//float lastX =  800.0f / 2.0;
+//float lastY =  600.0 / 2.0;
 float fov   =  45.0f;
 
 // timing
@@ -99,6 +104,10 @@ bool BUTTON_CLOSE_ENOUGH = false;
 
 bool SHOW_COORDINATE = false;
 int SHOW_DELAY = 0;
+
+// lighting
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+float light_x = 1.0, light_y = 0.0, light_z = 1.0;
 
 // Countdown until the button trigger can be pressed again.
 // This prevents accidental burst repeat clicking of the key.
@@ -231,16 +240,46 @@ int main()
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
 
+        // be sure to activate shader when setting uniforms/drawing objects
+        shader.use();
+        shader.setVec3("objectColor", 1.0f, 0.5f, 0.1f);
+
+        if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
+            light_x -= 0.01f;
+            light_y -= 0.01f;
+            light_z -= 0.01f;
+        } 
+        else if (glfwGetKey(window, GLFW_KEY_L)) {
+            light_x += 0.01f;
+            light_y += 0.01f;
+            light_z += 0.01f;
+        }
+        shader.setVec3("lightColor", light_x, light_y, light_z);
+        shader.setVec3("lightPos", lightPos);
+        shader.setVec3("viewPos", camera.Position);
+
+        // view/projection transformations
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        glm::mat4 view = camera.GetViewMatrix();
+        shader.setMat4("projection", projection);
+        shader.setMat4("view", view);
+
+        // world transformation
+        glm::mat4 model = glm::mat4(1.0f);
+        shader.setMat4("model", model);
+
 
 		// activate shader
 		shader.use();
 
 		// camera/view transformation
-		glm::mat4 view = glm::lookAt(camera_pos, camera_pos + camera_front, camera_up);
+		// glm::mat4 view = glm::lookAt(camera.Position, camera.Position + camera.Front, camera.Up);
+		view = glm::lookAt(camera.Position, camera.Position + camera.Front, camera.Up);
 		shader.setMat4("view", view);
 
 		//declare transformation matrix
-		glm::mat4 model = glm::mat4();
+		// glm::mat4 model = glm::mat4();
+		model = glm::mat4();
 
 		// Render objects
 		//------------------------------------------------------------------------------------------
@@ -800,13 +839,13 @@ void process_input(GLFWwindow *window)
 
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		camera_pos += cameraSpeed * camera_front;
+		camera.Position += cameraSpeed * camera.Front;
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		camera_pos -= cameraSpeed * camera_front;
+		camera.Position -= cameraSpeed * camera.Front;
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		camera_pos -= glm::normalize(glm::cross(camera_front, camera_up)) * cameraSpeed;
+		camera.Position -= glm::normalize(glm::cross(camera.Front, camera.Up)) * cameraSpeed;
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		camera_pos += glm::normalize(glm::cross(camera_front, camera_up)) * cameraSpeed;
+		camera.Position += glm::normalize(glm::cross(camera.Front, camera.Up)) * cameraSpeed;
 	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
 		KEY_R_PRESSED = !KEY_R_PRESSED;
 
@@ -904,7 +943,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     front.y = sin(glm::radians(pitch));
     front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    camera_front = glm::normalize(front);
+    camera.Front = glm::normalize(front);
 }
 
 // glfw: whenever the mouse scroll wheel scrolls, this callback is called
@@ -1097,7 +1136,7 @@ void renderZombie(glm::mat4 model, Shader shader, unsigned int VAO_box) {
 // Toggle button pressing only if the camera is close enough.
 void toggle_button_distance(glm::vec3 button_pos)
 {
-	if(glm::length(camera_pos - button_pos) <= 1.6f)
+	if(glm::length(camera.Position - button_pos) <= 1.6f)
 		BUTTON_CLOSE_ENOUGH = true;
 	else
 		BUTTON_CLOSE_ENOUGH = false;

@@ -33,6 +33,15 @@
     <ClCompile Include="src\Assignment\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\camera\look_around\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\light\basic_lighting\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\light\materials\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Tutorial\textures\4.1.texture.vs" />
@@ -76,6 +85,12 @@
     <None Include="assets\sample1_vertex_core.glsl" />
     <None Include="assets\example1_vertex_core.glsl" />
     <None Include="assets\example1_fragment_core.glsl" />
+    <None Include="assets\lamp_vertex_core.glsl" />
+    <None Include="assets\lamp_fragment_core.glsl" />
+    <None Include="assets\basic_lighting_vertex_core.glsl" />
+    <None Include="assets\basic_lighting_fragment_core.glsl" />
+    <None Include="assets\materials_vertex_core.glsl" />
+    <None Include="assets\materials_fragment_core.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\shader.h">
@@ -98,16 +113,7 @@
     <Image Include="assets\textures\obama10.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\textures\villager.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets\textures\zombie.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="assets\textures\blue_sky.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets\textures\cloud.jpg">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\textures\blue.jpg">
@@ -123,9 +129,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\textures\bricks2_normal.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets\textures\brickwall.jpg">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\textures\brickwall_normal.jpg">
@@ -150,9 +153,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\textures\green_specular.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets\textures\land.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\textures\marble.jpg">
@@ -197,9 +197,6 @@
     <Image Include="assets\textures\street_specular.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\textures\street.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="assets\textures\toy_box_diffuse.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -227,10 +224,60 @@
     <Image Include="assets\textures\wood2_specular.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\textures\sun.jpg">
+    <Image Include="assets\textures\horror_night.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\textures\sea.png">
+    <Image Include="assets\textures\street_vertical.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\street_horizontal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\land_horizontal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\land_vertical.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\brickwall_horizontal.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\brickwall_vertical.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\road_lamp.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\lamp.PNG">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\road_lamp.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\ak47_skin1.jpeg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\ak47_skin2.jpeg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\awp_skin1.jpeg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\awp_skin2.jpeg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\glock.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\knife.jfif" />
+    <Image Include="assets\textures\grenade.jfif" />
+    <Image Include="assets\textures\zombie_color.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\zombie_face.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\villager.jpg">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

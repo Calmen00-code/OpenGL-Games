@@ -1,10 +1,66 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1091,5): warning MSB8027: Two or more files with the name of main.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are src\Assignment\main.cpp, src\coordinate_system\multiple_cubes\main.cpp, src\openglTutorial3\sample_1\main.cpp.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1091,5): warning MSB8027: Two or more files with the name of main.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are src\Assignment\main.cpp, src\camera\look_around\main.cpp, src\coordinate_system\multiple_cubes\main.cpp, src\light\basic_lighting\main.cpp, src\light\materials\main.cpp, src\openglTutorial3\sample_1\main.cpp.
+  main.cpp
+C:\Users\calme\source\repos\OpenGLTutorial\Linking\include\learnopengl\shader_m.h(56,40): warning C4101: 'e': unreferenced local variable
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\Assignment\main.cpp(227,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\Assignment\main.cpp(836,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\Assignment\main.cpp(838,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\Assignment\main.cpp(919,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\Assignment\main.cpp(920,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\Assignment\main.cpp(924,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\Assignment\main.cpp(925,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\Assignment\main.cpp(926,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\Assignment\main.cpp(927,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+C:\Users\calme\source\repos\OpenGLTutorial\Linking\include\learnopengl\shader_s.h(56,40): warning C4101: 'e': unreferenced local variable
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\camera\look_around\main.cpp(232,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\camera\look_around\main.cpp(300,23): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\camera\look_around\main.cpp(326,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\camera\look_around\main.cpp(327,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\camera\look_around\main.cpp(331,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\camera\look_around\main.cpp(332,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\camera\look_around\main.cpp(333,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\camera\look_around\main.cpp(334,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+C:\Users\calme\source\repos\OpenGLTutorial\Linking\include\learnopengl\shader_s.h(56,40): warning C4101: 'e': unreferenced local variable
+  main.cpp
+C:\Users\calme\source\repos\OpenGLTutorial\Linking\include\learnopengl\shader_m.h(56,40): warning C4101: 'e': unreferenced local variable
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\basic_lighting\main.cpp(163,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\basic_lighting\main.cpp(273,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\basic_lighting\main.cpp(274,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\basic_lighting\main.cpp(278,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\basic_lighting\main.cpp(279,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\basic_lighting\main.cpp(281,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\basic_lighting\main.cpp(282,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\basic_lighting\main.cpp(291,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+C:\Users\calme\source\repos\OpenGLTutorial\Linking\include\learnopengl\shader_m.h(56,40): warning C4101: 'e': unreferenced local variable
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\materials\main.cpp(162,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\materials\main.cpp(182,27): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\materials\main.cpp(183,27): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\materials\main.cpp(184,27): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\materials\main.cpp(276,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\materials\main.cpp(277,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\materials\main.cpp(281,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\materials\main.cpp(282,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\materials\main.cpp(284,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\materials\main.cpp(285,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\light\materials\main.cpp(294,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   main.cpp
 C:\Users\calme\source\repos\OpenGLTutorial\Linking\include\learnopengl\shader_m.h(56,40): warning C4101: 'e': unreferenced local variable
 C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\openglTutorial3\sample_1\main.cpp(209,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\openglTutorial3\sample_1\main.cpp(462,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\calme\source\repos\OpenGLTutorial\OpenGLTutorial\src\openglTutorial3\sample_1\main.cpp(464,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-x64\Debug\main.obj : warning LNK4042: object specified more than once; extras ignored
-x64\Debug\main.obj : warning LNK4042: object specified more than once; extras ignored
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Generating Code...
   OpenGLTutorial.vcxproj -> C:\Users\calme\source\repos\OpenGLTutorial\x64\Debug\OpenGLTutorial.exe

@@ -31,7 +31,7 @@ float lastFrame = 0.0f;
 
 // lighting
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
-float light_x = 1.0, light_y = 1.0, light_z = 1.0;
+float light_x = 1.0, light_y = 0.0, light_z = 1.0;
 
 int main()
 {
@@ -78,7 +78,7 @@ int main()
     // build and compile our shader zprogram
     // ------------------------------------
     Shader lightingShader("assets/light_basic_vertex_core.glsl", "assets/light_basic_fragment_core.glsl");
-    Shader lightCubeShader("assets/light_basic_cube_vertex_core.glsl", "assets/light_basic_cube_fragment_core.glsl");
+    // Shader lightCubeShader("assets/light_basic_cube_vertex_core.glsl", "assets/light_basic_cube_fragment_core.glsl");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -178,18 +178,16 @@ int main()
         lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.1f);
 
         if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
-            light_x -= 0.1f;
-            light_y -= 0.1f;
-            light_z -= 0.1f;
+            light_x -= 0.01f;
+            light_y -= 0.01f;
+            light_z -= 0.01f;
         } 
         else if (glfwGetKey(window, GLFW_KEY_L)) {
-            light_x += 0.1f;
-            light_y += 0.1f;
-            light_z += 0.1f;
+            light_x += 0.01f;
+            light_y += 0.01f;
+            light_z += 0.01f;
         }
-        else {
-            lightingShader.setVec3("lightColor", light_x, light_y, light_z);
-        }
+        lightingShader.setVec3("lightColor", light_x, light_y, light_z);
         lightingShader.setVec3("lightPos", lightPos);
         lightingShader.setVec3("viewPos", camera.Position);
 
@@ -209,13 +207,13 @@ int main()
 
 
         // also draw the lamp object
-        lightCubeShader.use();
-        lightCubeShader.setMat4("projection", projection);
-        lightCubeShader.setMat4("view", view);
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, lightPos);
-        model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-        lightCubeShader.setMat4("model", model);
+        //lightCubeShader.use();
+        //lightCubeShader.setMat4("projection", projection);
+        //lightCubeShader.setMat4("view", view);
+        //model = glm::mat4(1.0f);
+        //model = glm::translate(model, lightPos);
+        //model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+        //lightCubeShader.setMat4("model", model);
 
         glBindVertexArray(lightCubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);

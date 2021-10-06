@@ -144,14 +144,19 @@
   <ItemGroup>
     <ClCompile Include="lib\stb.cpp" />
     <ClCompile Include="src\Assignment\main.cpp" />
+    <ClCompile Include="src\camera\look_around\main.cpp" />
     <ClCompile Include="src\coordinate_system\multiple_cubes\main.cpp" />
     <ClCompile Include="src\coordinate_system\multiple_cubes\shader.cpp" />
     <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\light\basic_lighting\main.cpp" />
+    <ClCompile Include="src\light\materials\main.cpp" />
     <ClCompile Include="src\openglTutorial3\sample_1\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\assignment\assignment_fragment_core.glsl" />
     <None Include="assets\assignment\assignment_vertex_core.glsl" />
+    <None Include="assets\basic_lighting_fragment_core.glsl" />
+    <None Include="assets\basic_lighting_vertex_core.glsl" />
     <None Include="assets\camera_look_at_fragment_core.glsl" />
     <None Include="assets\camera_look_at_vertex_core.glsl" />
     <None Include="assets\coordinate_fragment_core.glsl" />
@@ -160,6 +165,8 @@
     <None Include="assets\coordinate_vertex_core.glsl" />
     <None Include="assets\example1_fragment_core.glsl" />
     <None Include="assets\example1_vertex_core.glsl" />
+    <None Include="assets\lamp_vertex_core.glsl" />
+    <None Include="assets\lamp_fragment_core.glsl" />
     <None Include="assets\light_basic_cube_fragment_core.glsl" />
     <None Include="assets\light_basic_cube_vertex_core.glsl" />
     <None Include="assets\light_basic_fragment_core.glsl" />
@@ -168,6 +175,8 @@
     <None Include="assets\light_cube_vertex_core.glsl" />
     <None Include="assets\light_fragment_core.glsl" />
     <None Include="assets\light_vertex_core.glsl" />
+    <None Include="assets\materials_fragment_core.glsl" />
+    <None Include="assets\materials_vertex_core.glsl" />
     <None Include="assets\sample1_fragment_core.glsl" />
     <None Include="assets\sample1_vertex_core.glsl" />
     <None Include="assets\shader_class_vertex_core.glsl" />
@@ -196,27 +205,37 @@
     <ClInclude Include="src\shader.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\textures\ak47_skin1.jpeg" />
+    <Image Include="assets\textures\ak47_skin2.jpeg" />
     <Image Include="assets\textures\americanflag.png" />
     <Image Include="assets\textures\awesomeface.jpg" />
+    <Image Include="assets\textures\awp_skin1.jpeg" />
+    <Image Include="assets\textures\awp_skin2.jpeg" />
     <Image Include="assets\textures\blue.jpg" />
     <Image Include="assets\textures\blue_sky.jpg" />
     <Image Include="assets\textures\blue_specular.jpg" />
     <Image Include="assets\textures\bricks2.jpg" />
     <Image Include="assets\textures\bricks2_disp.jpg" />
     <Image Include="assets\textures\bricks2_normal.jpg" />
-    <Image Include="assets\textures\brickwall.jpg" />
+    <Image Include="assets\textures\brickwall_horizontal.jpg" />
     <Image Include="assets\textures\brickwall_normal.jpg" />
-    <Image Include="assets\textures\cloud.jpg" />
+    <Image Include="assets\textures\brickwall_vertical.jpg" />
     <Image Include="assets\textures\container.jpg" />
     <Image Include="assets\textures\container2.png" />
     <Image Include="assets\textures\container2_specular.png" />
     <Image Include="assets\textures\curtin.jpg" />
     <Image Include="assets\textures\curtin_specular.jpg" />
+    <Image Include="assets\textures\glock.png" />
     <Image Include="assets\textures\grass.jpg" />
     <Image Include="assets\textures\grass_specular.jpg" />
     <Image Include="assets\textures\green.jpg" />
     <Image Include="assets\textures\green_specular.jpg" />
-    <Image Include="assets\textures\land.png" />
+    <Image Include="assets\textures\grenade.jfif" />
+    <Image Include="assets\textures\horror_night.jpg" />
+    <Image Include="assets\textures\knife.jfif" />
+    <Image Include="assets\textures\lamp.PNG" />
+    <Image Include="assets\textures\land_horizontal.png" />
+    <Image Include="assets\textures\land_vertical.png" />
     <Image Include="assets\textures\marble.jpg" />
     <Image Include="assets\textures\marble2.jpg" />
     <Image Include="assets\textures\marble_specular.jpg" />
@@ -231,21 +250,23 @@
     <Image Include="assets\textures\red_dark.jpg" />
     <Image Include="assets\textures\red_dark_specular.jpg" />
     <Image Include="assets\textures\red_specular.jpg" />
-    <Image Include="assets\textures\sea.png" />
-    <Image Include="assets\textures\street.png" />
+    <Image Include="assets\textures\road_lamp.jpg" />
+    <Image Include="assets\textures\road_lamp.png" />
+    <Image Include="assets\textures\street_horizontal.png" />
     <Image Include="assets\textures\street_specular.png" />
-    <Image Include="assets\textures\sun.jpg" />
+    <Image Include="assets\textures\street_vertical.png" />
     <Image Include="assets\textures\toy_box_diffuse.png" />
     <Image Include="assets\textures\toy_box_disp.png" />
     <Image Include="assets\textures\toy_box_normal.png" />
-    <Image Include="assets\textures\villager.png" />
+    <Image Include="assets\textures\villager.jpg" />
     <Image Include="assets\textures\white.jpg" />
     <Image Include="assets\textures\window.jpg" />
     <Image Include="assets\textures\window.png" />
     <Image Include="assets\textures\wood.png" />
     <Image Include="assets\textures\wood2.jpg" />
     <Image Include="assets\textures\wood2_specular.jpg" />
-    <Image Include="assets\textures\zombie.jpg" />
+    <Image Include="assets\textures\zombie_color.png" />
+    <Image Include="assets\textures\zombie_face.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
